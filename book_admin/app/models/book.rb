@@ -1,7 +1,8 @@
 class Book < ActiveRecord::Base
   scope :costly, -> { where("price > ?", 3000) }
   scope :written_about, -> (theme) { where("name like ?", "%#{theme}%") }
-
+  enum status: %w(reservation: 0, now_on_sale: 1, end_of_print: 2)
+  
   belongs_to :publisher
   
   has_many :book_authors
@@ -24,5 +25,14 @@ class Book < ActiveRecord::Base
   
   after_destroy do |book|
     Rails.logger.info "Book is deleted: #{book.attributes.inspect}"
+  end
+
+  def high_price?
+    price >= 5000
+  end
+
+  after_destroy :if => :high_price? do |book|
+    Rails.logger.warn "Book with high price is deleted: #{book.attributes.inspect}"
+    Rails.logger.warn "Please check!!"
   end
 end
