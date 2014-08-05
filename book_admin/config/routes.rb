@@ -8,7 +8,7 @@ resource :profile, only: %i{show edit update}
 
 # get 'profile/update'
 
-  get "/book/:id" => "books#show"
+  get "/books/:id" => "books#show"
   resources :publishers do
     resources :books
 
