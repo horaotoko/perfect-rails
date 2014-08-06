@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
+
+resource :profile, only: %i{show edit update}
  
-  get "/book/:id" => "books#show"
+# get 'profile/show'
+
+# get 'profile/edit'
+
+# get 'profile/update'
+
+  get "/books/:id" => "books#show"
   resources :publishers do
     resources :books
 
