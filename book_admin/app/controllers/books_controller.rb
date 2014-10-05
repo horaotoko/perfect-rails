@@ -5,12 +5,12 @@ class BooksController < ApplicationController
   def set_book
     @book = Book.find(params[:id])
   end
-  
+
   def show
     @book = Book.find(params[:id])
     respond_to do |format|
       format.html
-      format.csv
+      format.json
     end
   end
 end
